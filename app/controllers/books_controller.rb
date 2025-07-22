@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  # :index（一覧）と :show（詳細）以外のアクションの前にログインを要求する
+  before_action :require_user, except: %i[index show]
   before_action :set_book, only: %i[ show edit update destroy ]
 
   # GET /books or /books.json
@@ -25,7 +27,7 @@ class BooksController < ApplicationController
 
     respond_to do |format|
       if @book.save
-        format.html { redirect_to @book, notice: "Book was successfully created." }
+        format.html { redirect_to @book, notice: "書籍が正常に作成されました。" }
         format.json { render :show, status: :created, location: @book }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,7 @@ class BooksController < ApplicationController
   def update
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to @book, notice: "Book was successfully updated." }
+        format.html { redirect_to @book, notice: "書籍が正常に更新されました。" }
         format.json { render :show, status: :ok, location: @book }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +54,7 @@ class BooksController < ApplicationController
     @book.destroy!
 
     respond_to do |format|
-      format.html { redirect_to books_path, status: :see_other, notice: "Book was successfully destroyed." }
+      format.html { redirect_to books_url, notice: "書籍が正常に削除されました。" }
       format.json { head :no_content }
     end
   end
@@ -60,11 +62,11 @@ class BooksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
-      @book = Book.find(params.expect(:id))
+      @book = Book.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def book_params
-      params.expect(book: [ :title, :author, :isbn, :category, :total_copies ])
+      params.require(:book).permit(:title, :author, :isbn, :category, :total_copies)
     end
 end
