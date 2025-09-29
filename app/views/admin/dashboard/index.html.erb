@@ -1,0 +1,32 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-8">管理ダッシュボード</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- 総書籍数 -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-700">総書籍数</h2>
+      <p class="text-4xl font-bold mt-2 text-blue-600"><%= @total_books_count %></p>
+    </div>
+
+    <!-- ユーザー数 -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-700">ユーザー数</h2>
+      <p class="text-4xl font-bold mt-2 text-green-600"><%= @total_users_count %></p>
+    </div>
+
+    <!-- 貸出中の本 -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-700">貸出中の本</h2>
+      <p class="text-4xl font-bold mt-2 text-yellow-600"><%= @borrowed_loans_count %></p>
+    </div>
+
+    <!-- 延滞中の本 -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-700">延滞中の本</h2>
+      <p class="text-4xl font-bold mt-2 text-red-600"><%= @overdue_loans_count %></p>
+    </div>
+  </div>
+
+  <%# 今後、ここに追加のダッシュボード情報を表示できます %>
+
+</div>

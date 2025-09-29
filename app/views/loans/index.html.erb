@@ -1,0 +1,42 @@
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-6">貸出状況</h1>
+
+  <div class="mb-12">
+    <h2 class="text-2xl font-semibold mb-4 border-b pb-2">現在借りている本</h2>
+    <% if @borrowing_loans.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% @borrowing_loans.each do |loan| %>
+          <div class="border rounded-lg p-4 shadow-sm">
+            <h3 class="font-bold text-lg"><%= link_to loan.book.title, book_path(loan.book), class: "hover:text-blue-600" %></h3>
+            <p class="text-gray-600 text-sm"><%= loan.book.author %></p>
+            <p class="mt-2">貸出日: <%= loan.borrowed_at %></p>
+            <p class="font-semibold <%= loan.due_at < Date.today ? 'text-red-500' : '' %>">
+              返却期限: <%= loan.due_at %>
+              <% if loan.due_at < Date.today %>
+                (期限切れ)
+              <% end %>
+            </p>
+            <div class="mt-4">
+              <%= button_to "返却する", loan_path(loan), method: :patch, class: "w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p>現在借りている本はありません。</p>
+    <% end %>
+  </div>
+
+  <div>
+    <h2 class="text-2xl font-semibold mb-4 border-b pb-2">返却済みの本</h2>
+    <% if @returned_loans.any? %>
+      <ul>
+        <% @returned_loans.each do |loan| %>
+          <li class="py-2 border-b"><%= loan.book.title %> (返却日: <%= loan.returned_at %>)</li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>返却済みの本はありません。</p>
+    <% end %>
+  </div>
+</div>

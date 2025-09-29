@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "books#index"
 
   resources :books
+  resources :loans, only: [:index, :create, :update]
   resources :users, only: [ :new, :create ]
 
   get "login", to: "sessions#new"
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
   # 管理者用画面
   namespace :admin do
     root "dashboard#index"
+    resources :books
+    resources :loans, only: [:index, :new, :create, :update]
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

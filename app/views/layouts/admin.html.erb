@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>管理画面 | LibRailsApp</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-gray-100">
+    <header class="bg-gray-800 text-white">
+      <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <%= link_to "管理ダッシュボード", admin_root_path, class: "text-xl font-bold" %>
+        <div>
+          <%= link_to "書籍管理", admin_books_path, class: "text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= link_to "貸出管理", admin_loans_path, class: "text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= link_to "利用者サイトへ", root_path, class: "text-gray-300 hover:text-white px-3 py-2" %>
+          <span class="text-gray-500">|</span>
+          <%= button_to "ログアウト", logout_path, method: :delete, class: "inline-block text-gray-300 hover:text-white px-3 py-2" %>
+        </div>
+      </nav>
+    </header>
+    <main class="container mx-auto px-4 py-8">
+      <p style="color: green"><%= notice %></p>
+      <p style="color: red"><%= alert %></p>
+      <%= yield %>
+    </main>
+  </body>
+</html>
