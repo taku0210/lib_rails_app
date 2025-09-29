@@ -7,3 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# 管理者ユーザーを検索または作成
+User.find_or_create_by!(student_no: 'admin') do |user|
+  user.name = '管理者'
+  user.password = 'password' # 強力なパスワードに変更してください
+  user.password_confirmation = 'password'
+  user.role = 'admin'
+  puts '管理者ユーザーを作成しました。'
+end

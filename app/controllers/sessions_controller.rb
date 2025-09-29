@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(student_no: params[:session][:student_no])
 
-    # ユーザーが見つかり、かつパスワードが一致する場合
-    if user && user.password == params[:session][:password]
+    # ユーザーが見つかり、かつパスワードが正しい場合
+    if user&.authenticate(params[:session][:password])
       session[:user_id] = user.id
       redirect_to root_path, notice: "ログインしました。"
     else
